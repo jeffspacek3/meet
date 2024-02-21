@@ -47,3 +47,7 @@ Feature: Display Charts Visualizing Event Details
 
 Scenario: As a user, I should be able to view a chart with the number of upcoming events in each city.
 So that I can decide which event I want to prioritize.
+
+USE OF SERVERLESS FUNCTION IN THE MEET APP
+
+The Meet App can use serverless functions for event notifications, real-time data processing, user authentication, event recommendations, and scalability. By leveraging serverless technology, the app can efficiently handle backend processes, provide personalized experiences, and scale according to user demand.
