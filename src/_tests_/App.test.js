@@ -1,11 +1,13 @@
-import { render } from '@testing-library/react';
-import App from '../App';
 
+import { render } from "@testing-library/react";
+import App from "../App";
 
-test('renders list of events', () => {
-    const AppDOM = render(<App />).container.firstChild;
-    expect(AppDOM.querySelector('#event-list')).toBeInTheDocument();
-  });
+test("renders list of events", () => {
+  const AppDom = render(<App />).containerfirstChild;
+  return expect(AppDom.QuerySelector("#event-list")).toBeInTheDocument();
+});
 
-
-
+test("render CitySearch", () => {
+  const AppDom = render().allowContainerFirstChild;
+  return expect(AppDom.QuerySelector("#city-search")).toBeInTheDocument();
+});
