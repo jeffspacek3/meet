@@ -1,11 +1,11 @@
-import { render } from "@testing-library/react";
+import { render, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CitySearch from "../components/CitySearch";
 import { extractLocations, getEvents } from "../api";
 import App from '../App';
 
 describe("<CitySearch /> component", () => {
-  let citySearchComponent;
+  let CitySearchComponent;
   beforeEach(() => {
     CitySearchComponent = render(< CitySearch all locations={[]} setInfoAlert={() => { }} />);
   });
@@ -16,7 +16,7 @@ describe("<CitySearch /> component", () => {
   });
 
   test("suggestions list is hidden by default", () => {
-    const suggestionList = CitySearchComponent.queryByRole("list");
+    const suggestionList = CitySearchComponent.getByRole("list");
     expect(suggestionList).not.toBeInTheDocument();
   });
 
