@@ -10,21 +10,21 @@ describe("<CitySearch /> component", () => {
     CitySearchComponent = render(< CitySearch all locations={[]} setInfoAlert={() => { }} />);
   });
   test("renders text input", () => {
-    const cityTextBox = CitySearchComponent.getByRole("textbox");
+    const cityTextBox = CitySearchComponent.screen.getByRole("textbox");
     expect(cityTextBox).toBeInTheDocument();
     expect(cityTextBox).toHaveClass("city");
   });
 
   test("suggestions list is hidden by default", () => {
-    const suggestionList = CitySearchComponent.getByRole("list");
+    const suggestionList = CitySearchComponent.screen.getByRole("list");
     expect(suggestionList).not.toBeInTheDocument();
   });
 
   test("renders a list of suggestions when city textbox gains focus", async () => {
     const user = userEvent.setup();
-    const cityTextBox = CitySearchComponent.queryByRole("textbox");
+    const cityTextBox = CitySearchComponent.screen.queryByRole("textbox");
     await user.click(cityTextBox);
-    const suggestionList = CitySearchComponent.queryByRole("list");
+    const suggestionList = CitySearchComponent.screen.getByRole("list");
     expect(suggestionList).toBeInTheDocument();
     expect(suggestionList).toHaveClass("suggestions");
   });
@@ -62,12 +62,12 @@ describe("<CitySearch /> component", () => {
     const allLocations = extractLocations(allEvents);
     CitySearchComponent.rerender(<CitySearch allLocations={allLocations} setCurrentCity={() => { }} setInforAlert={() => { }} />);
 
-    const cityTextBox = CitySearchComponent.queryByRole("textbox");
+    const cityTextBox = CitySearchComponent.screen.getByRole("textbox");
     await user.type(cityTextBox, "Berlin");
 
     // the suggestion's textContent look like this: "Berlin, Germany"
     const BerlinGermanySuggestion =
-      CitySearchComponent.queryAllByRole("listitem")[0];
+      CitySearchComponent.screen.getAllByRole("listitem")[0];
     await user.click(BerlinGermanySuggestion);
     expect(cityTextBox).toHaveValue(BerlinGermanySuggestion.textContent);
   });

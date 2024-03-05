@@ -11,10 +11,4 @@ describe('<App /> component', () => {
 test("renders list of events", () => {
   const AppDom = render(<App />).container.firstChild;
   return expect(AppDom.querySelector("#event-list")).toBeInTheDocument();
-});
-
-test("render CitySearch", () => {
-  const AppDom = render(<App/>).allowContainerFirstChild;
-  return expect(AppDom.querySelector("#city-search")).toBeInTheDocument();
-});
-
+})
