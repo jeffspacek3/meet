@@ -1,105 +1,54 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import Event from "../components/Event";
+import { render } from '@testing-library/react';
+import mockData from '../mock-data';
+import Event from '../components/Event';
+import { getEvents } from '../api';
+import userEvent from '@testing-library/user-event';
 
-const event = {
-    kind: "calendar#event",
-    etag: '"3181161784712000"',
-    id: "4eahs9ghkhrvkld72hogu9ph3e_20200519T140000Z",
-    status: "confirmed",
-    htmlLink:
-        "https://www.google.com/calendar/event?eid=NGVhaHM5Z2hraHJ2a2xkNzJob2d1OXBoM2VfMjAyMDA1MTlUMTQwMDAwWiBmdWxsc3RhY2t3ZWJkZXZAY2FyZWVyZm91bmRyeS5jb20",
-    created: "2020-05-19T19:17:46.000Z",
-    updated: "2020-05-27T12:01:32.356Z",
-    summary: "Learn JavaScript",
-    description:
-        "Have you wondered how you can ask Google to show you the list of the top ten must-see places in London? And how Google presents you the list? How can you submit the details of an application? Well, JavaScript is doing these. :) \n\nJavascript offers interactivity to a dull, static website. Come, learn JavaScript with us and make those beautiful websites.",
-    location: "London, UK",
-    creator: {
-        email: "fullstackwebdev@careerfoundry.com",
-        self: true,
-    },
-    organizer: {
-        email: "fullstackwebdev@careerfoundry.com",
-        self: true,
-    },
-    start: {
-        dateTime: "2020-05-19T16:00:00+02:00",
-        timeZone: "Europe/Berlin",
-    },
-    end: {
-        dateTime: "2020-05-19T17:00:00+02:00",
-        timeZone: "Europe/Berlin",
-    },
-    recurringEventId: "4eahs9ghkhrvkld72hogu9ph3e",
-    originalStartTime: {
-        dateTime: "2020-05-19T16:00:00+02:00",
-        timeZone: "Europe/Berlin",
-    },
-    iCalUID: "4eahs9ghkhrvkld72hogu9ph3e@google.com",
-    sequence: 0,
-    reminders: {
-        useDefault: true,
-    },
-    eventType: "default",
-};
 
-describe("<Event /> component", () => {
-    let container;
+describe('<Event /> component', () => {
+    let EventComponent;
+    const event = mockData[0].items[0];
     beforeEach(() => {
-        container = render(<Event event={event} />);
+        EventComponent = render(<Event event={event} />);
     });
+  test('has event title', () => {
+    expect(EventComponent.queryByText(event.summary)).toBeInTheDocument();
+  });
 
-    test("renders event title", () => {
-        expect(container.screen.getByText(event.summary)).toBeInTheDocument();
-    });
+  test('has event created time', () => {
+    expect(EventComponent.queryByText(event.created)).toBeInTheDocument();
+  });
 
-    test("renders event start time", () => {
-        expect(container.screen.getByText(event.start.dateTime)).toBeInTheDocument();
-    });
+  test('has event location', () => {
+    expect(EventComponent.queryByText(event.location)).toBeInTheDocument();
+  });
 
-    test("renders event location", () => {
-        expect(container.screen.getByText(event.location)).toBeInTheDocument();
-    });
+  test('has button show details', () => {
+    expect(EventComponent.queryByText('Show Details')).toBeInTheDocument();
+  });
 
-    test("renders event show details button", () => {
-        expect(container.screen.getByText("Show Details")).toBeInTheDocument();
-    });
+  test('by default, events details section should be hidden', () => {
+    const details = EventComponent.container.querySelector('.details');
+    expect(details).not.toBeInTheDocument();
+  });
 
-    test("renders event location", () => {
-        expect(container.screen.getByText(event.location)).toBeInTheDocument();
-    });
+  test('shows details section, when user clicks show details button', async() => {
+    const user = userEvent.setup();
+    const button = EventComponent.queryByText('Show Details');
+    await user.click(button);
+    const details = EventComponent.container.querySelector('.details');
+    expect(details).toBeInTheDocument();
+  });
 
-    test("renders event details button with the title (show details)", () => {
-        expect(container.screen.getByText("Show Details")).toBeInTheDocument();
-        expect(
-            container.screen.queryByText(/Have you wondered how you can ask Google/)
-        ).not.toBeInTheDocument();
-    });
+  test('hide details section, when user clicks hide details button', async() => {
+    const user = userEvent.setup();
+    const showButton = EventComponent.queryByText('Show Details');
+    const hideButton = EventComponent.queryByText('Hide Details');
+    user.click(hideButton);
+    expect(showButton).toBeInTheDocument();
+    expect(hideButton).not.toBeInTheDocument();
 
-    test("renders event name", () => {
-        expect(container.screen.getByText(event.summary)).toBeInTheDocument();
-    });
+  })
 
-    test("renders event date", () => {
-        expect(container.screen.getByText(event.start.dateTime)).toBeInTheDocument();
-    });
-
-    test("by default, the event's details section should be hidden", () => {
-        const eventDetails = container.screen.queryByText("description");
-        expect(eventDetails).not.toBeInTheDocument();
-    });
-
-    test("shows and hides the details section when the user toggles the button", () => {
-        const showDetailsButton = container.screen.getByText("Show Details");
-        fireEvent.click(showDetailsButton);
-        expect(
-            container.screen.screen.getByText(/Have you wondered how you can ask Google/)
-        ).toBeInTheDocument();
-        fireEvent.click(showDetailsButton);
-        expect(
-            container.screen.queryByText(/Have you wondered how you can ask Google/)
-        ).not.toBeInTheDocument();
-    });
-
-
+  
 });
