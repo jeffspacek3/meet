@@ -6,9 +6,9 @@ import userEvent from '@testing-library/user-event';
 describe('<NumberOfEvents /> component', () => {
     let NumberOfEventsComponent;
     beforeEach(() => {
-      const setErrorAlert = jest.fn();
+     
 
-      NumberOfEventsComponent = render(<NumberOfEvents setNumberOfEvents={() => {}} setErrorAlert={setErrorAlert} />);
+      NumberOfEventsComponent = render(<NumberOfEvents setNumberOfEvents={() => {}} />);
   });
 
   test('has an element with "textbox" role', () => {
@@ -23,8 +23,7 @@ describe('<NumberOfEvents /> component', () => {
     const numberOfEvents = NumberOfEventsComponent.queryByRole('textbox');
     const user = userEvent.setup();
     await user.type(numberOfEvents, '{backspace}{backspace}10');
-    expect(numberOfEvents).toHaveValue('10');
-    expect(setErrorAlert).toHaveBeenCalledWith(''); 
+    expect(numberOfEvents).toHaveValue('10'); 
   })
 
   
