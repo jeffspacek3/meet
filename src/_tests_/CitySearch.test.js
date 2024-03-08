@@ -8,14 +8,11 @@ describe('<CitySearch /> component', () => {
     let CitySearchComponent;
 
     beforeEach(() => {
-      const setInfoAlert = jest.fn();
+      CitySearchComponent = render(<CitySearch allLocations={[]}/>);
 
-        CitySearchComponent = render(<CitySearch 
-          allLocations={[]}
-          setCurrentCity={() => { }}
-           setInfoAlert={setInfoAlert}
-        />);
-    })
+        
+
+    });
 
   test('suggestion list is hidden default', () => {
     const suggestionList = CitySearchComponent.queryByRole('list');

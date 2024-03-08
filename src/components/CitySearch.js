@@ -30,9 +30,9 @@ const CitySearch = ({allLocations, setCurrentCity, setInfoAlert}) => {
       setInfoAlert("")
   };
 
-    useEffect(() => {
-      setSuggestions(allLocations);
-    }, [allLocations]);
+  useEffect(() => {
+    setSuggestions(allLocations);
+  }, [`${allLocations}`]);
 
 
     return(
@@ -58,5 +58,7 @@ const CitySearch = ({allLocations, setCurrentCity, setInfoAlert}) => {
         </div>
     )
 }
+
+
 
 export default CitySearch;
