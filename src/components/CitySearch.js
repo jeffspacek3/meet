@@ -14,7 +14,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
       : [];
     setQuery(value);
     setSuggestion(filteredLocations);
-
+      }
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
