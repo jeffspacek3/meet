@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
+const CitySearch = ({ allLocations, setCurrentCity }) => {
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [query, setQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestion, setSuggestion] = useState([]);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -13,27 +13,17 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
         })
       : [];
     setQuery(value);
-    setSuggestions(filteredLocations);
-
-    let infoText;
-    if (filteredLocations.length === 0) {
-      infoText =
-        "We can not find the city you are looking for. Please try another city";
-    } else {
-      infoText = "";
-    }
-    setInfoAlert(infoText);
-  };
+    setSuggestion(filteredLocations);
 
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
-    setShowSuggestions(false);
+    setShowSuggestion(false);
     setCurrentCity(value);
   };
 
   useEffect(() => {
-    setSuggestions(allLocations);
+    setSuggestion(allLocations);
   }, [`${allLocations}`]);
 
   return (
@@ -48,9 +38,9 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
       />
       {showSuggestion ? (
         <ul className="suggestion">
-          {suggestions.map((suggestion) => {
+          {suggestion.map((suggestion) => {
             return (
-              <li onClick={handleItemClicked} key ={suggestions}>{suggestion}
+              <li onClick={handleItemClicked} key ={suggestion}>{suggestion}
               </li>
             );
           })}
