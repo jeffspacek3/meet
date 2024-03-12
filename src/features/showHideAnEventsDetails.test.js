@@ -48,7 +48,7 @@ defineFeature(feature, (test) => {
     });
 
     when("the user clicks on the event to show details", async () => {
-      const showDetails = EventComponent.queryByText("show details");
+      const showDetails = EventComponent.queryByText("Show Details");
       const user = userEvent.setup();
       await user.click(showDetails);
     });
@@ -57,7 +57,7 @@ defineFeature(feature, (test) => {
       expect(
         EventComponent.container.querySelector(".details")
       ).toBeInTheDocument();
-      expect(EventComponent.queryByText("hide details")).toBeInTheDocument();
+      expect(EventComponent.queryByText("Hide Details")).toBeInTheDocument();
     });
   });
 
@@ -69,14 +69,14 @@ defineFeature(feature, (test) => {
       allEvents = await getEvents();
       EventComponent = render(<Event event={allEvents[0]} />);
       const user = userEvent.setup();
-      await user.click(EventComponent.queryByText("show details"));
+      await user.click(EventComponent.queryByText("Show Details"));
       expect(
         EventComponent.container.querySelector(".details")
       ).toBeInTheDocument();
     });
 
     when("the user clicks on the event to hide details again", async () => {
-      const hideDetails = EventComponent.queryByText("hide details");
+      const hideDetails = EventComponent.queryByText("Hide Details");
       const user = userEvent.setup();
       await user.click(hideDetails);
     });
@@ -86,7 +86,7 @@ defineFeature(feature, (test) => {
         EventComponent.container.querySelector(".details")
       ).not.toBeInTheDocument();
       expect(
-        EventComponent.queryByText("hide details")
+        EventComponent.queryByText("Hide Details")
       ).not.toBeInTheDocument();
     });
   });
