@@ -19,7 +19,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
       infoText =
         "We can not find the city you are looking for. Please try another city";
     } else {
-      infoText = "";
+      infoText = ""
     }
     setInfoAlert(infoText);
   };

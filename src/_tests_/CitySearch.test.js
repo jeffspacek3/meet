@@ -6,9 +6,12 @@ import { extractLocations, getEvents } from '../api';
 
 describe('<CitySearch /> component', () => {
     let CitySearchComponent;
-
     beforeEach(() => {
-      CitySearchComponent = render(<CitySearch allLocations={[]}/>);
+      CitySearchComponent = render(<CitySearch 
+        allLocations={[]}
+        setCurrentCity={() => { }}
+        setInfoAlert={() => { }}
+        />);
     });
 
   test('suggestion list is hidden default', () => {
@@ -36,8 +39,12 @@ describe('<CitySearch /> component', () => {
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
 
-    CitySearchComponent.rerender(<CitySearch allLocations={allLocations} setCurrentCity={() => { }} 
+    CitySearchComponent.rerender(<CitySearch
+      allLocations={allLocations}
+      setCurrentCity={() => { }}
+      setInfoAlert={() => { }}
     />);
+    
     // User types 'Berlin' in textbox
     const cityTextBox = CitySearchComponent.queryByRole('textbox');
     await user.type(cityTextBox, 'Berlin');
@@ -64,7 +71,8 @@ describe('<CitySearch /> component', () => {
     const allLocations = extractLocations(allEvents);
     CitySearchComponent.rerender(<CitySearch  
       allLocations={allLocations}
-      setCurrentCity={() => { }} 
+      setCurrentCity={() => { }}
+      setInfoAlert={() => { }}
       />);
 
     const cityTextBox = CitySearchComponent.queryByRole('textbox');
@@ -86,6 +94,7 @@ describe('<CitySearch /> component', () => {
     CitySearchComponent.rerender(<CitySearch
       allLocations={allLocations}
       setCurrentCity={() => { }}
+      setInfoAlert={() => { }}
     />);
   
     const cityTextBox = CitySearchComponent.queryByRole('textbox');
@@ -101,6 +110,7 @@ describe('<CitySearch /> component', () => {
 
 });
 
+// integration testing
 describe('<CitySearch /> integration', () => {
   test('renders suggestions list when the app is rendered.', async () => {
     const user = userEvent.setup();
