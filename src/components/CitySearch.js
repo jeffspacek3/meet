@@ -14,6 +14,8 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
       : [];
     setQuery(value);
     setSuggestion(filteredLocations);
+
+    //Alerts
     let infoText;
     if (filteredLocations.length === 0) {
       infoText =
@@ -23,6 +25,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     }
     setInfoAlert(infoText);
   };
+
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
