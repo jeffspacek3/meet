@@ -1,10 +1,11 @@
 import CitySearch from "./components/CitySearch";
 import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
+import EventGenresChart from "./components/EventGenresChart";
+import CityEventsChart from "./components/CityEventsChart";
 import { ErrorAlert, InfoAlert, WarningAlert } from "./components/Alert";
 import { useEffect, useState } from "react";
 import { extractLocations, getEvents } from "./api";
-import CityEventsChart from "./components/CityEventsChart";
 import "./App.css";
 
 const App = () => {
@@ -20,9 +21,11 @@ const App = () => {
     if (navigator.onLine) {
       setWarningAlert("");
     } else {
-      setWarningAlert("You are offline. The displayed list may not be up to date.");
+      setWarningAlert(
+        "You are offline. The displayed list may not be up to date."
+      );
     }
-    
+
     fetchData();
   }, [currentCity, currentNOE]);
 
@@ -42,9 +45,8 @@ const App = () => {
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
         {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
-        {warningAlert.length ? <WarningAlert text={warningAlert}/> : null}
+        {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
       </div>
-
       <CitySearch
         allLocations={allLocations}
         setCurrentCity={setCurrentCity}
@@ -54,8 +56,10 @@ const App = () => {
         setCurrentNOE={setCurrentNOE}
         setErrorAlert={setErrorAlert}
       />
-      <cityEventsChart allLocations={allLocations} events={events}
-      />
+      <div className="charts-container">
+        <EventGenresChart events={events} />
+        <CityEventsChart allLocations={allLocations} events={events} />
+      </div>
       <EventList events={events} />
     </div>
   );
