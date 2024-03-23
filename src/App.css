@@ -101,7 +101,7 @@ input[type="number"] {
   grid-template-columns: 1fr 1fr;
 }
 
-@media all and (max-width: 750px) {
+@media all and (max-width: 768px) {
   .charts-container {
     grid-template-columns: 1fr;
   }
