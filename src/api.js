@@ -35,7 +35,7 @@ export const getEvents = async () => {
   const token = await getAccessToken();
   if (token) {
     removeQuery();
-    const url = "https://jeffspacek3.github.io/meet/" + "/" + token;
+    const url = "https://p490z7wm9a.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + token;
     const response = await fetch(url);
     const result = await response.json();
     if (result) {
@@ -84,7 +84,7 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    "https://p490z7wm9a.execute-api.eu-central-1.amazonaws.com/dev/api/token/{code}" +
+    "https://p490z7wm9a.execute-api.eu-central-1.amazonaws.com/dev/api/token" +
       "/" +
       encodeCode
   );
